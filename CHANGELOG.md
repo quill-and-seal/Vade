@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.4.1
+
+Corrections de l'interface téléphone.
+
+- Le clavier Android ne recouvre plus le champ du chat : la page rétrécit quand il s'ouvre.
+- Les taps rapides sur −1 / +1 ne perdent plus de PV : chaque ajustement attend le précédent.
+- Le chat n'affiche plus de messages en double quand on change d'onglet pendant son chargement.
+- Le badge de messages non lus ignore tes propres messages et jets.
+- Tests de l'adaptateur dnd5e (`node --test`).
+
 ## 0.4.0
 
 Interface téléphone, activée par défaut sur téléphone et désactivable dans les réglages.

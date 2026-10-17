@@ -19,7 +19,8 @@ export function setupViewportMeta() {
     meta.name = "viewport";
     document.head.appendChild(meta);
   }
-  meta.content = "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover";
+  // interactive-widget : le clavier Android rétrécit la page au lieu de recouvrir ce qui est collé en bas.
+  meta.content = "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content";
 }
 
 /** Suit la zone visible (qui rétrécit quand le clavier virtuel s'ouvre). */

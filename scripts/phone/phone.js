@@ -39,6 +39,8 @@ export class PhoneInterface {
   #unread = 0;
   #chat = new ChatView();
   #dice = { pool: {}, mod: 0, last: null };
+  // Les ajustements de PV s'enchaînent : chacun part de la valeur écrite par le précédent.
+  #resourceQueue = Promise.resolve();
 
   constructor(api) {
     this.#api = api;
@@ -46,10 +48,6 @@ export class PhoneInterface {
 
   get enabled() {
     return this.#enabled;
-  }
-
-  get tab() {
-    return this.#tab;
   }
 
   /** Personnage suivi par l'interface. */
@@ -185,7 +183,11 @@ export class PhoneInterface {
           if (actor) await adapter.roll(actor, id);
           break;
         case "resource":
-          if (actor) await adapter.adjustResource(actor, id, Number(el.dataset.delta));
+          if (actor) {
+            const delta = Number(el.dataset.delta);
+            this.#resourceQueue = this.#resourceQueue.catch(() => {}).then(() => adapter.adjustResource(actor, id, delta));
+            await this.#resourceQueue;
+          }
           break;
         case "rest":
           if (actor) await adapter.rest(actor, id);
@@ -350,7 +352,7 @@ export class PhoneInterface {
     Hooks.on("createChatMessage", message => {
       if (!this.#enabled || !message.visible) return;
       if (this.#tab === "chat") this.#chat.add(message);
-      else this.#setUnread(this.#unread + 1);
+      else if ((message.author ?? message.user)?.id !== game.user.id) this.#setUnread(this.#unread + 1);
     });
     Hooks.on("updateChatMessage", message => {
       if (this.#enabled && this.#tab === "chat") this.#chat.update(message);

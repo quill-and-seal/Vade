@@ -137,6 +137,14 @@ L'émulation mobile de Chrome sur PC ne reproduit ni les vrais gestes ni les per
 3. Ouvre la partie Foundry dans Chrome sur le téléphone, puis clique sur **inspect** en face de l'onglet.
 4. Dans la console : `game.modules.get("vade").api.report()` affiche le diagnostic (appareil détecté, profil, résolution réelle du canvas).
 
+## Tests
+
+Les tests de l'adaptateur dnd5e tournent sans Foundry, avec Node 20 ou plus :
+
+```
+node --test
+```
+
 ## Licence
 
 MIT, voir [LICENSE](LICENSE).

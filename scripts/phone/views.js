@@ -169,8 +169,10 @@ const CHAT_HISTORY = 40;
 export class ChatView {
   #list = null;
   #elements = new Map();
+  #generation = 0; // un attach ou un detach plus récent arrête le chargement en cours
 
   async attach(container) {
+    const generation = ++this.#generation;
     container.innerHTML = `
       <ol class="vade-chat-log"></ol>
       <form class="vade-chat-form">
@@ -192,19 +194,24 @@ export class ChatView {
     });
 
     const messages = game.messages.contents.filter(m => m.visible).slice(-CHAT_HISTORY);
-    for (const message of messages) await this.add(message, false);
+    for (const message of messages) {
+      if (generation !== this.#generation) return;
+      await this.add(message, false);
+    }
     this.#scrollToEnd();
   }
 
   detach() {
+    this.#generation++;
     this.#list = null;
     this.#elements.clear();
   }
 
   async add(message, scroll = true) {
-    if (!this.#list) return;
+    const list = this.#list;
+    if (!list) return;
     const el = await renderMessage(message);
-    if (!el || !this.#list) return;
+    if (!el || list !== this.#list) return; // la vue a été refermée ou rouverte pendant le rendu
     const li = document.createElement("li");
     li.appendChild(el);
     this.#list.appendChild(li);
