@@ -21,6 +21,10 @@
         "Hint": "Lightens rendering on modest devices. Automatic: strong on phones, light on tablets, off on desktops. The strong profile caps the map's resolution and runs Foundry at 30 frames per second.",
         "Auto": "Automatic"
       },
+      "Gestures": {
+        "Name": "Touch gestures on the map",
+        "Hint": "Drag to move the view, pinch to zoom, long press a token for its HUD (or to target it if it isn't yours), long press empty space to ping, double-tap to open a sheet. Phones and tablets only."
+      },
       "ManageCore": {
         "Name": "Adjust Foundry settings",
         "Hint": "Lets Vade lower Foundry's performance mode and frame rate according to the profile, in this browser only. Original values are restored if you set the profile back to \"Off\"."

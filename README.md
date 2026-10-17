@@ -6,7 +6,7 @@ Le nom vient du *vade-mecum*, le petit guide qu'on garde dans sa poche. Vade ada
 
 Un module de l'atelier [Quill & Seal](https://github.com/quill-and-seal).
 
-> **État : 0.1, fondations.** Cette version détecte l'appareil et allège le rendu. Les gestes tactiles et les interfaces adaptées arrivent dans les versions suivantes (voir [ROADMAP.md](ROADMAP.md)).
+> **État : 0.2.** Vade détecte l'appareil, allège le rendu et rend la carte utilisable au doigt. Les interfaces tablette et téléphone arrivent dans les versions suivantes (voir [ROADMAP.md](ROADMAP.md)).
 
 ## Installation
 
@@ -18,7 +18,23 @@ https://github.com/quill-and-seal/Vade/releases/latest/download/module.json
 
 Active ensuite le module dans ton monde. Il n'a aucune dépendance.
 
-## Ce que fait la 0.1
+## Gestes sur la carte
+
+Sur téléphone et tablette (réglage « Gestes tactiles sur la carte », activé par défaut) :
+
+| Geste | Sur le vide | Sur un token à toi | Sur le token d'un autre |
+|---|---|---|---|
+| Glisser un doigt | Déplace la vue | Déplace le token (mesure et murs de Foundry) | Déplace la vue |
+| Tap | — | Sélectionne le token | — |
+| Double-tap | — | Ouvre sa fiche | Ouvre sa fiche (si tu peux la voir) |
+| Appui long | Ping | Ouvre le HUD du token | Le cible / ne plus le cibler |
+| Deux doigts | Pincer pour zoomer, glisser pour déplacer la vue | | |
+
+Un appui long reconnu se signale par une vibration brève et un cercle sous le doigt. Si tu poses un second doigt pendant que tu déplaces un token, le déplacement est annulé et le token revient à son point de départ.
+
+Ces gestes s'appliquent quand le calque des tokens est actif, ce qui est le cas pour les joueurs. Sur les autres calques, un doigt seul est laissé à Foundry, et le zoom à deux doigts fonctionne toujours. La souris et le stylet ne sont jamais interceptés.
+
+## Fondations
 
 ### Détection de l'appareil
 
@@ -60,6 +76,7 @@ Hooks.once("vadeReady", vade => {
   // vade.mode    : "phone" | "tablet" | "desktop"
   // vade.touch   : true sur téléphone et tablette
   // vade.profile : { id, resolutionCap, maxFPS, performanceMode, antialias, effectScale }
+  // vade.gestures : gestes de la carte (enable() / disable()), null hors tactile
   const scale = vade.profile.effectScale; // 1 = pleine qualité, 0.3 = profil fort
 });
 

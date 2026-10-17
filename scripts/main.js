@@ -7,6 +7,7 @@
  *   mode     : "phone" | "tablet" | "desktop" — mode effectif (réglage forcé ou détection)
  *   touch    : true si Vade traite l'appareil comme tactile
  *   profile  : profil de performance actif (voir PROFILES dans constants.js)
+ *   gestures : gestes tactiles de la carte (voir gestures.js), null hors appareil tactile
  *   report() : affiche le diagnostic dans la console
  *
  * Hook « vadeReady » (api) : appelé une fois Foundry prêt, pour que d'autres modules
@@ -17,12 +18,14 @@ import { MODULE_ID, DEVICE, AUTO_PROFILE, log, t } from "./constants.js";
 import { detectDevice } from "./device.js";
 import { applyCanvasConfig, applyCoreSettings, resolveProfile } from "./performance.js";
 import { setupViewportMeta, trackVisualViewport, suppressLowResolutionWarning } from "./viewport.js";
+import { TouchGestures } from "./gestures.js";
 
 const api = {
   device: null,
   mode: DEVICE.DESKTOP,
   touch: false,
   profile: null,
+  gestures: null,
   report
 };
 
@@ -61,6 +64,20 @@ function registerSettings() {
     },
     default: "auto",
     requiresReload: true
+  });
+
+  game.settings.register(MODULE_ID, "gestures", {
+    name: "VADE.Settings.Gestures.Name",
+    hint: "VADE.Settings.Gestures.Hint",
+    scope: "client",
+    config: true,
+    type: Boolean,
+    default: true,
+    onChange: value => {
+      if (!api.gestures) return;
+      if (value) api.gestures.enable();
+      else api.gestures.disable();
+    }
   });
 
   game.settings.register(MODULE_ID, "manageCore", {
@@ -139,6 +156,10 @@ Hooks.once("setup", async () => {
 
 Hooks.once("ready", () => {
   applyBodyClasses();
+  if (api.touch) {
+    api.gestures = new TouchGestures();
+    if (game.settings.get(MODULE_ID, "gestures")) api.gestures.enable();
+  }
   announce();
   Hooks.callAll("vadeReady", api);
 });

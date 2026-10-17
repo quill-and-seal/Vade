@@ -1,6 +1,6 @@
 /*
  * Vade — styles de base.
- * Les interfaces tablette et téléphone arriveront aux étapes 3 et 4 ;
+ * Les interfaces tablette et téléphone arriveront dans les versions 0.3 et 0.4 ;
  * ici, seulement ce qui sert dès maintenant à tous les appareils tactiles.
  */
 
@@ -29,7 +29,7 @@ body.vade-touch .journal-entry-page {
 }
 
 /* Le navigateur ne doit pas zoomer ni défiler la page quand on manipule la carte :
-   les gestes seront gérés par Vade (étape 2). */
+   les gestes sont gérés par Vade (gestures.js). */
 body.vade-touch #board {
   touch-action: none;
 }
@@ -39,4 +39,22 @@ body.vade-touch input,
 body.vade-touch textarea,
 body.vade-touch select {
   font-size: max(16px, 1em);
+}
+
+/* Retour visuel d'un appui long sur la carte. */
+.vade-press-ring {
+  position: fixed;
+  width: 56px;
+  height: 56px;
+  margin: -28px 0 0 -28px;
+  border-radius: 50%;
+  border: 3px solid var(--color-warm-2, #ff9b5c);
+  pointer-events: none;
+  z-index: 10000;
+  animation: vade-press 0.35s ease-out forwards;
+}
+
+@keyframes vade-press {
+  from { transform: scale(0.4); opacity: 0.9; }
+  to { transform: scale(1.2); opacity: 0; }
 }
