@@ -6,7 +6,7 @@ Le nom vient du *vade-mecum*, le petit guide qu'on garde dans sa poche. Vade ada
 
 Un module de l'atelier [Quill & Seal](https://github.com/quill-and-seal).
 
-> **État : 0.3.** Vade détecte l'appareil, allège le rendu, rend la carte utilisable au doigt et adapte l'interface de Foundry au tactile. L'interface dédiée au téléphone arrive dans la 0.4 (voir [ROADMAP.md](ROADMAP.md)).
+> **État : 0.4.** Vade détecte l'appareil, allège le rendu, rend la carte utilisable au doigt, adapte l'interface de Foundry au tactile et propose une interface dédiée au téléphone. La suite est dans [ROADMAP.md](ROADMAP.md).
 
 ## Installation
 
@@ -33,6 +33,29 @@ Sur téléphone et tablette (réglage « Gestes tactiles sur la carte », activ�
 Un appui long reconnu se signale par une vibration brève et un cercle sous le doigt. Si tu poses un second doigt pendant que tu déplaces un token, le déplacement est annulé et le token revient à son point de départ.
 
 Ces gestes s'appliquent quand le calque des tokens est actif, ce qui est le cas pour les joueurs. Sur les autres calques, un doigt seul est laissé à Foundry, et le zoom à deux doigts fonctionne toujours. La souris et le stylet ne sont jamais interceptés.
+
+## Interface téléphone
+
+Réglage « Interface téléphone », activé par défaut sur téléphone. L'interface de Foundry (sidebar, macros, contrôles de scène, liste des joueurs) laisse place à une barre d'onglets en bas de l'écran. Un onglet ouvre un panneau qui couvre le bas de l'écran, et la carte reste visible au-dessus. L'onglet actif, la croix ou un tap sur la carte le referment.
+
+| Onglet | Contenu |
+|---|---|
+| **Personnage** | Portrait, PV (−5 / −1 / +1 / +5 ou saisie directe), statistiques, jets de caractéristiques, sauvegardes, compétences, initiative, repos, fiche complète |
+| **Actions** | Armes, sorts par niveau (avec les emplacements restants), capacités, consommables. Un tap utilise l'objet et referme le panneau pour viser ou poser un gabarit |
+| **Dés** | d20, avantage, désavantage en un tap ; réserve de dés avec modificateur ; dernier résultat |
+| **Chat** | Les derniers messages, avec les boutons du système, et un champ de saisie (les commandes `/r` marchent). Un badge compte les messages non lus |
+
+**La carte suit ton personnage** : à chaque scène, la vue se centre sur son token et le sélectionne. Un **tap dans le vide** déplace ce token vers la case touchée. Le déplacement est refusé si un mur bloque la destination ou si la partie est en pause. Le glisser du token reste possible, et le réglage « Déplacement au tap » coupe cette fonction.
+
+Le personnage suivi est le token que tu as sélectionné, sinon le personnage que le MJ t'a attribué, sinon le premier personnage que tu possèdes.
+
+**Systèmes de jeu** : dnd5e a un adaptateur complet (jets, PV, repos, armes, sorts, capacités). Pour les autres systèmes, l'onglet Actions liste les objets du personnage, et la fiche complète reste accessible. Un module peut ajouter son propre adaptateur :
+
+```js
+Hooks.once("vadeReady", vade => vade.registerAdapter("monsysteme", { character(actor) { … }, actions(actor) { … } }));
+```
+
+L'interface attendue est décrite dans `scripts/adapters/generic.js`.
 
 ## Interface tactile
 
@@ -95,6 +118,7 @@ Hooks.once("vadeReady", vade => {
   // vade.profile : { id, resolutionCap, maxFPS, performanceMode, antialias, effectScale }
   // vade.gestures : gestes de la carte (enable() / disable()), null hors tactile
   // vade.ui       : interface tactile (enable() / disable()), null hors tactile
+  // vade.phone    : interface téléphone (open(tab), close(), centerOnCharacter()), null hors téléphone
   const scale = vade.profile.effectScale; // 1 = pleine qualité, 0.3 = profil fort
 });
 

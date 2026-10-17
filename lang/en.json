@@ -29,6 +29,14 @@
         "Name": "Touch interface",
         "Hint": "Sheets open as panels docked to the screen edge (right in landscape, bottom in portrait, full screen on phones), sidebar closed by tapping the map, larger buttons, long press a button to see its tooltip."
       },
+      "PhoneInterface": {
+        "Name": "Phone interface",
+        "Hint": "On phones, replaces Foundry's interface with a tab bar (Character, Actions, Dice, Chat) and centers the map on your character. Turn it off to get the usual interface back."
+      },
+      "TapToMove": {
+        "Name": "Tap to move",
+        "Hint": "On phones, tapping empty space on the map moves your selected token to the tapped square. Dragging the token still works."
+      },
       "ManageCore": {
         "Name": "Adjust Foundry settings",
         "Hint": "Lets Vade lower Foundry's performance mode and frame rate according to the profile, in this browser only. Original values are restored if you set the profile back to \"Off\"."
@@ -40,6 +48,54 @@
     },
     "Notify": {
       "Detected": "Vade: {device} detected, performance profile \"{profile}\". You can change this in the module settings."
+    },
+    "Phone": {
+      "Tab": {
+        "character": "Character",
+        "actions": "Actions",
+        "dice": "Dice",
+        "chat": "Chat"
+      },
+      "Close": "Close",
+      "Items": "Items",
+      "NoActor": "No character: ask your GM to assign you one.",
+      "NoActions": "Nothing to use for now.",
+      "FullSheet": "Full sheet",
+      "Advantage": "Advantage",
+      "Disadvantage": "Disadvantage",
+      "Modifier": "Modifier",
+      "PickDice": "Tap dice to build your roll",
+      "Clear": "Clear",
+      "Roll": "Roll",
+      "Result": "Result:",
+      "ChatPlaceholder": "Message, /r 1d20…",
+      "Send": "Send",
+      "Paused": "The game is paused.",
+      "Blocked": "A wall blocks this move.",
+      "MoveFailed": "Could not move.",
+      "Error": "Vade: the action failed (details in the console)."
+    },
+    "Dnd5e": {
+      "CR": "CR",
+      "HP": "Hit points",
+      "AC": "AC",
+      "Init": "Init.",
+      "Speed": "Speed",
+      "Prof": "Prof.",
+      "Passive": "Passive Perc.",
+      "Abilities": "Abilities",
+      "Saves": "Saving throws",
+      "Skills": "Skills",
+      "Other": "Other rolls",
+      "Initiative": "Initiative",
+      "DeathSave": "Death save",
+      "ShortRest": "Short rest",
+      "LongRest": "Long rest",
+      "Weapons": "Weapons",
+      "Cantrips": "Cantrips",
+      "SpellLevel": "Level {level} spells",
+      "Features": "Features",
+      "Consumables": "Consumables"
     }
   }
 }

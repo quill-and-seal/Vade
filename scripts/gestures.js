@@ -59,6 +59,14 @@ export class TouchGestures {
   #onUp = this.#handleUp.bind(this);
   #onContextMenu = this.#handleContextMenu.bind(this);
 
+  /**
+   * Appelé sur un tap dans le vide (calque des tokens) avec le point du monde et le point
+   * d'écran. Renvoyer true indique que le tap a été utilisé (l'interface téléphone s'en sert
+   * pour le déplacement au tap).
+   * @type {((world: {x:number, y:number}, screen: {x:number, y:number}) => boolean) | null}
+   */
+  onEmptyTap = null;
+
   get enabled() {
     return this.#enabled;
   }
@@ -185,6 +193,7 @@ export class TouchGestures {
     stop(event);
     if (this.#mode === MODE.PENDING && released && !this.#longFired) {
       if (this.#isDoubleTap(p) && p.token) this.#openSheet(p.token);
+      else if (!p.token && this.#emptyTap(p)) this.#toggleHover(null);
       else this.#toggleHover(p.token);
     }
     if (this.#pointers.size === 0) this.#reset();
@@ -340,6 +349,16 @@ export class TouchGestures {
     return true;
   }
 
+  #emptyTap(p) {
+    if (typeof this.onEmptyTap !== "function") return false;
+    try {
+      return !!this.onEmptyTap(this.#toWorld(p.x, p.y), { x: p.x, y: p.y });
+    } catch (err) {
+      console.error("Vade | Erreur dans onEmptyTap", err);
+      return false;
+    }
+  }
+
   /** Tap : affiche le token comme au survol de la souris ; un second tap, ou un tap ailleurs, l'efface. */
   #toggleHover(token) {
     const previous = this.#hovered;
@@ -427,7 +446,7 @@ function stop(event) {
 }
 
 /** Retour visuel et vibration brève quand un appui long est reconnu. */
-function feedback(x, y) {
+export function feedback(x, y) {
   navigator.vibrate?.(12);
   const ring = document.createElement("div");
   ring.className = "vade-press-ring";

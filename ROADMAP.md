@@ -18,11 +18,11 @@
 - Fenêtres (fiches, journaux) en panneaux latéraux plutôt que flottantes
 - Tap à la place du survol (tooltips, surbrillance des tokens)
 
-## 0.4 — Interface téléphone
+## 0.4 — Interface téléphone ✅
 - Barre d'onglets : Personnage · Actions · Dés · Chat
 - Carte en fond, centrée sur le token du joueur
 - Déplacement par tap sur le token puis sur la destination
-- Ciblage et ping au tap
+- Ciblage et ping à l'appui long (gestes de la 0.2)
 - Architecture à adaptateurs par système : dnd5e d'abord, fiche native en plein écran en repli
 
 ## Plus tard

@@ -134,3 +134,541 @@ body.vade-ui .vade-panel-full {
 body.vade-ui .vade-panel .window-content {
   font-size: max(var(--font-size-14, 14px), 14px);
 }
+
+/* -------------------------------------------- */
+/*  Interface téléphone (body.vade-phone-ui)    */
+/* -------------------------------------------- */
+
+body.vade-phone-ui {
+  --vade-tabbar-height: 60px;
+  --vade-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --vade-bg: rgba(18, 16, 22, 0.97);
+  --vade-surface: rgba(255, 255, 255, 0.06);
+  --vade-surface-strong: rgba(255, 255, 255, 0.12);
+  --vade-line: rgba(255, 255, 255, 0.12);
+  --vade-text: #ece6dc;
+  --vade-muted: #a59c90;
+  --vade-accent: #e8a35c;
+  --vade-danger: #c44a3f;
+}
+
+/* L'interface de Foundry laisse la place à la barre d'onglets. */
+body.vade-phone-ui #sidebar,
+body.vade-phone-ui #hotbar,
+body.vade-phone-ui #players,
+body.vade-phone-ui #scene-controls,
+body.vade-phone-ui #navigation,
+body.vade-phone-ui #scene-navigation,
+body.vade-phone-ui #controls {
+  display: none !important;
+}
+
+/* Les messages qui apparaissent sur la carte restent au-dessus de la barre. */
+body.vade-phone-ui #chat-notifications {
+  bottom: calc(var(--vade-tabbar-height) + var(--vade-safe-bottom) + 8px) !important;
+}
+
+#vade-phone {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  color: var(--vade-text);
+  font-family: var(--font-primary, sans-serif);
+}
+
+#vade-phone > * {
+  pointer-events: auto;
+}
+
+/* Barre d'onglets */
+.vade-tabbar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(var(--vade-tabbar-height) + var(--vade-safe-bottom));
+  padding-bottom: var(--vade-safe-bottom);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: var(--vade-bg);
+  border-top: 1px solid var(--vade-line);
+}
+
+.vade-tab {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  background: none;
+  color: var(--vade-muted);
+  font-size: 12px;
+  line-height: 1;
+}
+
+.vade-tab i {
+  font-size: 20px;
+}
+
+.vade-tab.active {
+  color: var(--vade-accent);
+}
+
+.vade-badge {
+  position: absolute;
+  top: 6px;
+  left: calc(50% + 6px);
+  min-width: 18px;
+  padding: 2px 5px;
+  border-radius: 9px;
+  background: var(--vade-danger);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* Panneau */
+.vade-sheet {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--vade-tabbar-height) + var(--vade-safe-bottom));
+  height: min(72dvh, calc(var(--vade-viewport-height) - var(--vade-tabbar-height) - 40px));
+  display: flex;
+  flex-direction: column;
+  background: var(--vade-bg);
+  border-radius: 16px 16px 0 0;
+  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.5);
+  animation: vade-slide-up 0.18s ease-out;
+}
+
+.vade-sheet[hidden] {
+  display: none;
+}
+
+@keyframes vade-slide-up {
+  from { transform: translateY(24px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+/* Clavier ouvert : le panneau occupe la zone visible pour garder le champ en vue. */
+body.vade-keyboard-open .vade-sheet {
+  height: calc(var(--vade-viewport-height) - var(--vade-tabbar-height) - 8px);
+}
+
+.vade-sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px 6px 16px;
+  border-bottom: 1px solid var(--vade-line);
+}
+
+.vade-sheet-title {
+  margin: 0;
+  border: none;
+  color: var(--vade-text);
+  font-size: 18px;
+}
+
+.vade-sheet-body {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding: 12px 16px 20px;
+}
+
+/* Boutons */
+#vade-phone button {
+  font-family: inherit;
+  color: var(--vade-text);
+  cursor: pointer;
+}
+
+.vade-icon-button {
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: var(--vade-surface);
+  font-size: 18px;
+}
+
+.vade-button {
+  flex: 1;
+  min-height: 46px;
+  margin: 0;
+  padding: 0 12px;
+  border: 1px solid var(--vade-line);
+  border-radius: 10px;
+  background: var(--vade-surface);
+  font-size: 15px;
+}
+
+.vade-button:active,
+.vade-roll:active,
+.vade-action:active,
+.vade-die:active {
+  background: var(--vade-surface-strong);
+}
+
+.vade-button[disabled] {
+  opacity: 0.4;
+}
+
+.vade-primary {
+  background: var(--vade-accent);
+  border-color: var(--vade-accent);
+  color: #1b1408 !important;
+  font-weight: 700;
+}
+
+.vade-button-wide {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.vade-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.vade-empty {
+  margin: 32px 8px;
+  text-align: center;
+  color: var(--vade-muted);
+}
+
+/* Personnage */
+.vade-char-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.vade-char-head img {
+  width: 56px;
+  height: 56px;
+  border: none;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--vade-surface);
+}
+
+.vade-char-head h3 {
+  margin: 0;
+  border: none;
+  font-size: 20px;
+}
+
+.vade-char-head p {
+  margin: 2px 0 0;
+  color: var(--vade-muted);
+  font-size: 13px;
+}
+
+.vade-resource {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--vade-surface);
+}
+
+.vade-resource-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--vade-muted);
+}
+
+.vade-resource-temp {
+  color: #7fb8e8;
+  font-weight: 700;
+}
+
+.vade-bar {
+  height: 8px;
+  margin: 8px 0 10px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.vade-bar span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #b8402f, #e07a3c);
+}
+
+.vade-resource-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.vade-resource-controls button {
+  flex: 0 0 44px;
+  height: 40px;
+  margin: 0;
+  border: 1px solid var(--vade-line);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.25);
+  font-size: 15px;
+}
+
+.vade-resource-value {
+  flex: 1;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
+  font-size: 15px;
+  color: var(--vade-muted);
+}
+
+.vade-resource-value input {
+  width: 3.4em;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--vade-text);
+  text-align: center;
+  font-size: 20px !important;
+  font-weight: 700;
+}
+
+.vade-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(64px, 1fr));
+  gap: 6px;
+  margin: 12px 0;
+}
+
+.vade-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 4px;
+  border-radius: 10px;
+  background: var(--vade-surface);
+}
+
+.vade-stat b {
+  font-size: 18px;
+}
+
+.vade-stat span {
+  font-size: 11px;
+  color: var(--vade-muted);
+  text-align: center;
+}
+
+.vade-group {
+  margin-top: 10px;
+  border-top: 1px solid var(--vade-line);
+}
+
+.vade-group summary {
+  padding: 12px 2px;
+  font-size: 15px;
+  font-weight: 700;
+  list-style-position: inside;
+}
+
+.vade-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--vade-cols, 2), 1fr);
+  gap: 6px;
+  padding-bottom: 8px;
+}
+
+.vade-roll {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  min-height: 44px;
+  margin: 0;
+  padding: 0 10px;
+  border: 1px solid var(--vade-line);
+  border-radius: 8px;
+  background: var(--vade-surface);
+  font-size: 14px;
+  text-align: left;
+}
+
+.vade-roll b {
+  color: var(--vade-accent);
+}
+
+/* Actions */
+.vade-action-group h4 {
+  display: flex;
+  justify-content: space-between;
+  margin: 14px 0 6px;
+  border: none;
+  color: var(--vade-muted);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.vade-action {
+  width: 100%;
+  min-height: 52px;
+  margin: 0 0 6px;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--vade-line);
+  border-radius: 10px;
+  background: var(--vade-surface);
+  text-align: left;
+}
+
+.vade-action.dim {
+  opacity: 0.5;
+}
+
+.vade-action img {
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 6px;
+}
+
+.vade-action-name {
+  flex: 1;
+  font-size: 15px;
+}
+
+.vade-action-note {
+  color: var(--vade-muted);
+  font-size: 13px;
+}
+
+/* Dés */
+.vade-quick {
+  margin-top: 0;
+}
+
+.vade-dice {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.vade-die {
+  position: relative;
+  aspect-ratio: 1;
+  margin: 0;
+  border: 1px solid var(--vade-line);
+  border-radius: 12px;
+  background: var(--vade-surface);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.vade-die b {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  min-width: 20px;
+  padding: 1px 5px;
+  border-radius: 10px;
+  background: var(--vade-accent);
+  color: #1b1408;
+  font-size: 12px;
+}
+
+.vade-modifier {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  font-size: 15px;
+}
+
+.vade-modifier button {
+  width: 52px;
+  height: 44px;
+  margin: 0;
+  border: 1px solid var(--vade-line);
+  border-radius: 10px;
+  background: var(--vade-surface);
+  font-size: 22px;
+}
+
+.vade-formula {
+  margin: 14px 0 0;
+  text-align: center;
+  font-size: 18px;
+  color: var(--vade-muted);
+}
+
+.vade-result {
+  margin: 14px 0 0;
+  text-align: center;
+  font-size: 16px;
+}
+
+.vade-result b {
+  font-size: 28px;
+  color: var(--vade-accent);
+}
+
+.vade-result span {
+  color: var(--vade-muted);
+}
+
+/* Chat */
+.vade-chat-log {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.vade-chat-log > li {
+  margin-bottom: 8px;
+}
+
+.vade-chat-log .chat-message {
+  margin: 0;
+}
+
+.vade-chat-form {
+  position: sticky;
+  bottom: -20px;
+  display: flex;
+  gap: 8px;
+  margin: 0 -16px -20px;
+  padding: 10px 16px;
+  background: var(--vade-bg);
+  border-top: 1px solid var(--vade-line);
+}
+
+.vade-chat-form textarea {
+  flex: 1;
+  min-height: 44px;
+  max-height: 120px;
+  padding: 10px 12px;
+  border: 1px solid var(--vade-line);
+  border-radius: 22px;
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--vade-text);
+  resize: none;
+}

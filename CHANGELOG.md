@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.4.0
+
+Interface téléphone, activée par défaut sur téléphone et désactivable dans les réglages.
+
+- L'interface de Foundry (sidebar, macros, contrôles de scène, joueurs) laisse place à une barre d'onglets : Personnage · Actions · Dés · Chat. Un onglet ouvre un panneau en bas de l'écran ; la carte reste visible au-dessus. L'onglet actif, la croix ou un tap sur la carte le referment.
+- La carte se centre sur le token du personnage au chargement de chaque scène, et le sélectionne.
+- Déplacement au tap : un tap dans le vide déplace le token sélectionné vers la case touchée (aligné sur la grille). Refusé si un mur bloque la destination ou si la partie est en pause. Réglage « Déplacement au tap ».
+- Personnage : portrait, PV avec boutons −5/−1/+1/+5 et saisie directe, statistiques, jets de caractéristiques, sauvegardes, compétences, initiative et jet contre la mort, repos court et long, accès à la fiche complète.
+- Actions : armes, sorts par niveau (emplacements restants dans l'en-tête, sorts non préparés grisés), capacités avec utilisations, consommables avec quantité. Un tap utilise l'objet et referme le panneau pour viser ou poser un gabarit.
+- Dés : d20, avantage, désavantage en un tap ; réserve de dés (d4 à d100) avec modificateur ; dernier résultat affiché. Les jets utilisent les données du personnage (@prof, @abilities…).
+- Chat : les 40 derniers messages rendus par Foundry (boutons du système compris), champ de saisie (commandes /r comprises), badge de messages non lus sur l'onglet.
+- Adaptateurs de système : dnd5e (API des jets 4 et 5, repli 3.x) et un adaptateur générique pour les autres systèmes. D'autres modules peuvent en ajouter avec `api.registerAdapter(systemId, adapter)`.
+
 ## 0.3.0
 
 Interface tactile (tablette, et téléphone en attendant son interface dédiée), activée par défaut et désactivable dans les réglages.

@@ -9,6 +9,9 @@
  *   profile  : profil de performance actif (voir PROFILES dans constants.js)
  *   gestures : gestes tactiles de la carte (voir gestures.js), null hors appareil tactile
  *   ui       : interface tactile (voir interface.js), null hors appareil tactile
+ *   phone    : interface téléphone (voir phone/phone.js), null hors téléphone
+ *   registerAdapter(systemId, adapter) : ajoute un adaptateur de système pour l'interface
+ *                                        téléphone (interface décrite dans adapters/generic.js)
  *   report() : affiche le diagnostic dans la console
  *
  * Hook « vadeReady » (api) : appelé une fois Foundry prêt, pour que d'autres modules
@@ -21,6 +24,8 @@ import { applyCanvasConfig, applyCoreSettings, resolveProfile } from "./performa
 import { setupViewportMeta, trackVisualViewport, suppressLowResolutionWarning } from "./viewport.js";
 import { TouchGestures } from "./gestures.js";
 import { TouchInterface } from "./interface.js";
+import { PhoneInterface } from "./phone/phone.js";
+import { registerAdapter } from "./adapters/index.js";
 
 const api = {
   device: null,
@@ -29,6 +34,8 @@ const api = {
   profile: null,
   gestures: null,
   ui: null,
+  phone: null,
+  registerAdapter,
   report
 };
 
@@ -95,6 +102,25 @@ function registerSettings() {
       if (value) api.ui.enable();
       else api.ui.disable();
     }
+  });
+
+  game.settings.register(MODULE_ID, "phoneInterface", {
+    name: "VADE.Settings.PhoneInterface.Name",
+    hint: "VADE.Settings.PhoneInterface.Hint",
+    scope: "client",
+    config: true,
+    type: Boolean,
+    default: true,
+    requiresReload: true
+  });
+
+  game.settings.register(MODULE_ID, "tapToMove", {
+    name: "VADE.Settings.TapToMove.Name",
+    hint: "VADE.Settings.TapToMove.Hint",
+    scope: "client",
+    config: true,
+    type: Boolean,
+    default: true
   });
 
   game.settings.register(MODULE_ID, "manageCore", {
@@ -178,6 +204,10 @@ Hooks.once("ready", () => {
     if (game.settings.get(MODULE_ID, "gestures")) api.gestures.enable();
     api.ui = new TouchInterface(api);
     if (game.settings.get(MODULE_ID, "touchInterface")) api.ui.enable();
+    if (api.mode === DEVICE.PHONE && game.settings.get(MODULE_ID, "phoneInterface")) {
+      api.phone = new PhoneInterface(api);
+      api.phone.enable();
+    }
   }
   announce();
   Hooks.callAll("vadeReady", api);

@@ -29,6 +29,14 @@
         "Name": "Interface tactile",
         "Hint": "Fiches ouvertes en panneaux accrochés au bord de l'écran (à droite en paysage, en bas en portrait, plein écran sur téléphone), sidebar refermée d'un tap sur la carte, boutons agrandis, appui long sur un bouton pour voir sa bulle d'aide."
       },
+      "PhoneInterface": {
+        "Name": "Interface téléphone",
+        "Hint": "Sur téléphone, remplace l'interface de Foundry par une barre d'onglets (Personnage, Actions, Dés, Chat) et centre la carte sur ton personnage. Désactive-la pour retrouver l'interface habituelle."
+      },
+      "TapToMove": {
+        "Name": "Déplacement au tap",
+        "Hint": "Sur téléphone, un tap dans le vide de la carte déplace ton token sélectionné vers la case touchée. Le glisser du token reste possible."
+      },
       "ManageCore": {
         "Name": "Adapter les réglages de Foundry",
         "Hint": "Laisse Vade baisser le mode performance et le nombre d'images par seconde de Foundry selon le profil, sur ce navigateur uniquement. Les valeurs d'origine sont restaurées si tu repasses le profil sur « Désactivé »."
@@ -40,6 +48,54 @@
     },
     "Notify": {
       "Detected": "Vade : {device} détecté, profil de performance « {profile} ». Tu peux changer ça dans les réglages du module."
+    },
+    "Phone": {
+      "Tab": {
+        "character": "Personnage",
+        "actions": "Actions",
+        "dice": "Dés",
+        "chat": "Chat"
+      },
+      "Close": "Fermer",
+      "Items": "Objets",
+      "NoActor": "Aucun personnage : demande au MJ de t'en attribuer un.",
+      "NoActions": "Rien à utiliser pour l'instant.",
+      "FullSheet": "Fiche complète",
+      "Advantage": "Avantage",
+      "Disadvantage": "Désavantage",
+      "Modifier": "Modificateur",
+      "PickDice": "Touche des dés pour composer ton jet",
+      "Clear": "Effacer",
+      "Roll": "Lancer",
+      "Result": "Résultat :",
+      "ChatPlaceholder": "Message, /r 1d20…",
+      "Send": "Envoyer",
+      "Paused": "La partie est en pause.",
+      "Blocked": "Un mur bloque ce déplacement.",
+      "MoveFailed": "Déplacement impossible.",
+      "Error": "Vade : l'action a échoué (détails dans la console)."
+    },
+    "Dnd5e": {
+      "CR": "FP",
+      "HP": "Points de vie",
+      "AC": "CA",
+      "Init": "Init.",
+      "Speed": "Vitesse",
+      "Prof": "Maîtrise",
+      "Passive": "Perc. passive",
+      "Abilities": "Caractéristiques",
+      "Saves": "Sauvegardes",
+      "Skills": "Compétences",
+      "Other": "Autres jets",
+      "Initiative": "Initiative",
+      "DeathSave": "Jet contre la mort",
+      "ShortRest": "Repos court",
+      "LongRest": "Repos long",
+      "Weapons": "Armes",
+      "Cantrips": "Sorts mineurs",
+      "SpellLevel": "Sorts de niveau {level}",
+      "Features": "Capacités",
+      "Consumables": "Consommables"
     }
   }
 }
