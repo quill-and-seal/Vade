@@ -1,0 +1,42 @@
+/*
+ * Vade — styles de base.
+ * Les interfaces tablette et téléphone arriveront aux étapes 3 et 4 ;
+ * ici, seulement ce qui sert dès maintenant à tous les appareils tactiles.
+ */
+
+:root {
+  /* Hauteur réellement visible (mise à jour quand le clavier virtuel s'ouvre). */
+  --vade-viewport-height: 100dvh;
+  /* Taille minimale d'une cible tactile (recommandation courante : 44 à 48 px). */
+  --vade-touch-target: 44px;
+}
+
+/* Pas de surlignage bleu au tap, pas de menu « copier/partager » à l'appui long sur l'interface. */
+body.vade-touch {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  overscroll-behavior: none;
+}
+
+/* Le texte reste sélectionnable là où il doit l'être : chat, champs, journaux. */
+body.vade-touch input,
+body.vade-touch textarea,
+body.vade-touch [contenteditable="true"],
+body.vade-touch .chat-message .message-content,
+body.vade-touch .journal-entry-page {
+  -webkit-touch-callout: default;
+  user-select: text;
+}
+
+/* Le navigateur ne doit pas zoomer ni défiler la page quand on manipule la carte :
+   les gestes seront gérés par Vade (étape 2). */
+body.vade-touch #board {
+  touch-action: none;
+}
+
+/* Évite le zoom automatique d'iOS/Android sur les champs en dessous de 16 px. */
+body.vade-touch input,
+body.vade-touch textarea,
+body.vade-touch select {
+  font-size: max(16px, 1em);
+}

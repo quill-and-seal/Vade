@@ -1,0 +1,37 @@
+{
+  "VADE": {
+    "Device": {
+      "phone": "Téléphone",
+      "tablet": "Tablette",
+      "desktop": "Ordinateur"
+    },
+    "Profile": {
+      "off": "Désactivé (qualité normale)",
+      "light": "Léger",
+      "strong": "Fort"
+    },
+    "Settings": {
+      "Mode": {
+        "Name": "Type d'appareil",
+        "Hint": "Automatique : Vade détecte s'il tourne sur un téléphone, une tablette ou un ordinateur. Tu peux forcer un type si la détection se trompe. Propre à ce navigateur.",
+        "Auto": "Automatique"
+      },
+      "Profile": {
+        "Name": "Profil de performance",
+        "Hint": "Allège le rendu sur les appareils modestes. Automatique : fort sur téléphone, léger sur tablette, désactivé sur ordinateur. Le profil fort plafonne la résolution de la carte et passe Foundry à 30 images par seconde.",
+        "Auto": "Automatique"
+      },
+      "ManageCore": {
+        "Name": "Adapter les réglages de Foundry",
+        "Hint": "Laisse Vade baisser le mode performance et le nombre d'images par seconde de Foundry selon le profil, sur ce navigateur uniquement. Les valeurs d'origine sont restaurées si tu repasses le profil sur « Désactivé »."
+      },
+      "HideLowRes": {
+        "Name": "Masquer l'avertissement d'écran trop petit",
+        "Hint": "Foundry prévient que la résolution est trop faible sur les petits écrans. Vade le masque sur les appareils tactiles."
+      }
+    },
+    "Notify": {
+      "Detected": "Vade : {device} détecté, profil de performance « {profile} ». Tu peux changer ça dans les réglages du module."
+    }
+  }
+}
