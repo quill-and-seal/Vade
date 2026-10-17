@@ -6,7 +6,7 @@ Le nom vient du *vade-mecum*, le petit guide qu'on garde dans sa poche. Vade ada
 
 Un module de l'atelier [Quill & Seal](https://github.com/quill-and-seal).
 
-> **État : 0.2.** Vade détecte l'appareil, allège le rendu et rend la carte utilisable au doigt. Les interfaces tablette et téléphone arrivent dans les versions suivantes (voir [ROADMAP.md](ROADMAP.md)).
+> **État : 0.3.** Vade détecte l'appareil, allège le rendu, rend la carte utilisable au doigt et adapte l'interface de Foundry au tactile. L'interface dédiée au téléphone arrive dans la 0.4 (voir [ROADMAP.md](ROADMAP.md)).
 
 ## Installation
 
@@ -25,7 +25,7 @@ Sur téléphone et tablette (réglage « Gestes tactiles sur la carte », activ�
 | Geste | Sur le vide | Sur un token à toi | Sur le token d'un autre |
 |---|---|---|---|
 | Glisser un doigt | Déplace la vue | Déplace le token (mesure et murs de Foundry) | Déplace la vue |
-| Tap | — | Sélectionne le token | — |
+| Tap | Efface le survol | Sélectionne le token | L'affiche comme au survol (nom, bordure) |
 | Double-tap | — | Ouvre sa fiche | Ouvre sa fiche (si tu peux la voir) |
 | Appui long | Ping | Ouvre le HUD du token | Le cible / ne plus le cibler |
 | Deux doigts | Pincer pour zoomer, glisser pour déplacer la vue | | |
@@ -33,6 +33,23 @@ Sur téléphone et tablette (réglage « Gestes tactiles sur la carte », activ�
 Un appui long reconnu se signale par une vibration brève et un cercle sous le doigt. Si tu poses un second doigt pendant que tu déplaces un token, le déplacement est annulé et le token revient à son point de départ.
 
 Ces gestes s'appliquent quand le calque des tokens est actif, ce qui est le cas pour les joueurs. Sur les autres calques, un doigt seul est laissé à Foundry, et le zoom à deux doigts fonctionne toujours. La souris et le stylet ne sont jamais interceptés.
+
+## Interface tactile
+
+Réglage « Interface tactile », activé par défaut sur téléphone et tablette.
+
+- **Fiches en panneaux** : les fiches de personnages, d'objets et de journaux s'ouvrent accrochées au bord de l'écran au lieu de flotter.
+
+  | Appareil | Placement |
+  |---|---|
+  | Tablette en paysage | À droite, pleine hauteur, à côté des onglets de la sidebar |
+  | Tablette en portrait | En bas, sur environ 60 % de la hauteur |
+  | Téléphone | Plein écran |
+
+  Les panneaux se replacent quand on tourne l'appareil. Un panneau redimensionné à la main garde sa taille jusqu'à sa fermeture. Les dialogues et les autres fenêtres gardent le comportement de Foundry.
+- **Sidebar en tiroir** : elle est repliée au chargement, et un tap sur la carte la referme.
+- **Boutons agrandis** : contrôles de scène, onglets, barre de macros et boutons des fenêtres font au moins 44 px.
+- **Bulles d'aide** : un appui long sur un bouton affiche sa bulle d'aide sans le déclencher.
 
 ## Fondations
 
@@ -77,6 +94,7 @@ Hooks.once("vadeReady", vade => {
   // vade.touch   : true sur téléphone et tablette
   // vade.profile : { id, resolutionCap, maxFPS, performanceMode, antialias, effectScale }
   // vade.gestures : gestes de la carte (enable() / disable()), null hors tactile
+  // vade.ui       : interface tactile (enable() / disable()), null hors tactile
   const scale = vade.profile.effectScale; // 1 = pleine qualité, 0.3 = profil fort
 });
 

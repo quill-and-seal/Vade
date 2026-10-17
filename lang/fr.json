@@ -25,6 +25,10 @@
         "Name": "Gestes tactiles sur la carte",
         "Hint": "Glisser pour déplacer la vue, pincer pour zoomer, appui long sur un token pour son HUD (ou pour le cibler s'il n'est pas à toi), appui long sur le vide pour un ping, double-tap pour ouvrir une fiche. Uniquement sur téléphone et tablette."
       },
+      "TouchInterface": {
+        "Name": "Interface tactile",
+        "Hint": "Fiches ouvertes en panneaux accrochés au bord de l'écran (à droite en paysage, en bas en portrait, plein écran sur téléphone), sidebar refermée d'un tap sur la carte, boutons agrandis, appui long sur un bouton pour voir sa bulle d'aide."
+      },
       "ManageCore": {
         "Name": "Adapter les réglages de Foundry",
         "Hint": "Laisse Vade baisser le mode performance et le nombre d'images par seconde de Foundry selon le profil, sur ce navigateur uniquement. Les valeurs d'origine sont restaurées si tu repasses le profil sur « Désactivé »."

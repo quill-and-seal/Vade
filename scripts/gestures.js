@@ -11,6 +11,8 @@
  *       · appui long → HUD du token (à la place du clic droit)
  *       · double-tap → fiche du personnage
  *   - doigt posé ailleurs (vide ou token d'un autre) : Vade garde les événements ;
+ *       · tap sur un token → l'afficher comme au survol (nom, bordure, infos des autres
+ *         modules qui réagissent au survol) ; tap ailleurs → l'effacer
  *       · glisser → déplacer la vue
  *       · appui long sur le vide → ping sur la carte
  *       · appui long sur un token d'un autre → le cibler / ne plus le cibler
@@ -48,6 +50,7 @@ export class TouchGestures {
   #pinch = null;
   #frame = null;
   #lastTap = null;
+  #hovered = null;
   #lastTouch = 0;
   #synthetic = new WeakSet();
 
@@ -180,8 +183,9 @@ export class TouchGestures {
     }
 
     stop(event);
-    if (this.#mode === MODE.PENDING && released && !this.#longFired && this.#isDoubleTap(p) && p.token) {
-      this.#openSheet(p.token);
+    if (this.#mode === MODE.PENDING && released && !this.#longFired) {
+      if (this.#isDoubleTap(p) && p.token) this.#openSheet(p.token);
+      else this.#toggleHover(p.token);
     }
     if (this.#pointers.size === 0) this.#reset();
   }
@@ -336,6 +340,17 @@ export class TouchGestures {
     return true;
   }
 
+  /** Tap : affiche le token comme au survol de la souris ; un second tap, ou un tap ailleurs, l'efface. */
+  #toggleHover(token) {
+    const previous = this.#hovered;
+    this.#hovered = null;
+    if (previous && !previous.destroyed) setHover(previous, false);
+    if (token && token !== previous) {
+      setHover(token, true);
+      this.#hovered = token;
+    }
+  }
+
   #openSheet(token) {
     const actor = token?.actor;
     if (!actor?.testUserPermission(game.user, "LIMITED")) return;
@@ -392,6 +407,17 @@ export class TouchGestures {
     this.#anchor = null;
     this.#pinch = null;
     this.#longFired = false;
+  }
+}
+
+/** Survol d'un token par les méthodes de Foundry, qui préviennent aussi les autres modules (hook hoverToken). */
+function setHover(token, on) {
+  const handler = on ? token._onHoverIn : token._onHoverOut;
+  if (typeof handler !== "function") return;
+  try {
+    handler.call(token, new PointerEvent(on ? "pointerenter" : "pointerleave"), { hoverOutOthers: true });
+  } catch (err) {
+    console.warn("Vade | Survol du token impossible", err);
   }
 }
 

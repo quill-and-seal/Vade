@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.3.0
+
+Interface tactile (tablette, et téléphone en attendant son interface dédiée), activée par défaut et désactivable dans les réglages.
+
+- Fiches en panneaux : les fiches de personnages, d'objets et de journaux s'ouvrent accrochées au bord de l'écran. Tablette en paysage : à droite, pleine hauteur ; tablette en portrait : en bas ; téléphone : plein écran. Les panneaux se replacent quand on tourne l'appareil. Les dialogues gardent le comportement de Foundry.
+- Sidebar en tiroir : repliée au chargement, refermée par un tap sur la carte ou à l'ouverture d'un panneau latéral.
+- Boutons agrandis (contrôles de scène, onglets de la sidebar, barre de macros, en-têtes de fenêtres) et poignée de redimensionnement plus grande.
+- Appui long sur un bouton : affiche sa bulle d'aide, sans déclencher le bouton.
+- Tap sur le token d'un autre : l'affiche comme au survol de la souris (nom, bordure, infos des modules qui réagissent au survol). Un second tap, ou un tap ailleurs, l'efface.
+
 ## 0.2.0
 
 Gestes tactiles sur la carte (téléphone et tablette), activés par défaut et désactivables dans les réglages.

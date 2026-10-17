@@ -58,3 +58,79 @@ body.vade-touch select {
   from { transform: scale(0.4); opacity: 0.9; }
   to { transform: scale(1.2); opacity: 0; }
 }
+
+/* -------------------------------------------- */
+/*  Interface tactile (body.vade-ui)            */
+/* -------------------------------------------- */
+
+/* Boutons de l'interface de Foundry : taille minimale d'une cible tactile.
+   --control-size est la variable de taille des contrôles de l'interface de Foundry. */
+body.vade-ui {
+  --control-size: var(--vade-touch-target);
+}
+
+body.vade-ui #scene-controls button,
+body.vade-ui #sidebar-tabs button,
+body.vade-ui #sidebar-tabs [data-tab],
+body.vade-ui #hotbar .slot,
+body.vade-ui button.ui-control {
+  min-width: var(--vade-touch-target);
+  min-height: var(--vade-touch-target);
+}
+
+/* Boutons d'en-tête des fenêtres (fermer, configurer…) : plus faciles à toucher. */
+body.vade-ui .window-header .header-control,
+body.vade-ui .window-header .header-button,
+body.vade-ui .window-header a.close {
+  min-width: 40px;
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Poignée de redimensionnement plus grande. */
+body.vade-ui .window-resize-handle,
+body.vade-ui .window-resizable-handle {
+  width: 28px;
+  height: 28px;
+}
+
+/* Défilement au doigt fluide et contenu dans les fenêtres et la sidebar. */
+body.vade-ui .window-content,
+body.vade-ui #sidebar .tab,
+body.vade-ui #chat-log,
+body.vade-ui .chat-log {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* Les fenêtres non accrochées ne débordent jamais de l'écran. */
+body.vade-ui .application,
+body.vade-ui .app.window-app {
+  max-width: 100vw;
+  max-height: var(--vade-viewport-height);
+}
+
+/* Fiches en panneaux. */
+body.vade-ui .vade-panel {
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.55);
+}
+
+body.vade-ui .vade-panel-side {
+  border-radius: 12px 0 0 12px;
+}
+
+body.vade-ui .vade-panel-bottom {
+  border-radius: 12px 12px 0 0;
+}
+
+body.vade-ui .vade-panel-full {
+  border-radius: 0;
+  max-height: var(--vade-viewport-height);
+}
+
+/* Dans un panneau, le contenu des onglets se lit sans zoom. */
+body.vade-ui .vade-panel .window-content {
+  font-size: max(var(--font-size-14, 14px), 14px);
+}

@@ -25,6 +25,10 @@
         "Name": "Touch gestures on the map",
         "Hint": "Drag to move the view, pinch to zoom, long press a token for its HUD (or to target it if it isn't yours), long press empty space to ping, double-tap to open a sheet. Phones and tablets only."
       },
+      "TouchInterface": {
+        "Name": "Touch interface",
+        "Hint": "Sheets open as panels docked to the screen edge (right in landscape, bottom in portrait, full screen on phones), sidebar closed by tapping the map, larger buttons, long press a button to see its tooltip."
+      },
       "ManageCore": {
         "Name": "Adjust Foundry settings",
         "Hint": "Lets Vade lower Foundry's performance mode and frame rate according to the profile, in this browser only. Original values are restored if you set the profile back to \"Off\"."

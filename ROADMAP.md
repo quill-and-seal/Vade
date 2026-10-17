@@ -13,7 +13,7 @@
 - Appui long à la place du clic droit (HUD de token), ciblage des tokens des autres, ping
 - Glisser un token au doigt, avec la mesure de déplacement de Foundry
 
-## 0.3 — Interface tablette
+## 0.3 — Interface tablette ✅
 - Contrôles de scène agrandis, sidebar en tiroir coulissant
 - Fenêtres (fiches, journaux) en panneaux latéraux plutôt que flottantes
 - Tap à la place du survol (tooltips, surbrillance des tokens)
