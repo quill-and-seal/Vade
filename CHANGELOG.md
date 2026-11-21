@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.2
+
+- L'avertissement « résolution trop faible » de Foundry est aussi masqué dans sa variante qui parle du zoom, et quelle que soit la langue de Foundry.
+- Rappel : la page de connexion (`/join`) s'affiche avant le chargement des modules, Vade ne peut donc pas y masquer l'avertissement. Ferme-le avec la croix.
+
 ## 0.4.1
 
 Corrections de l'interface téléphone.

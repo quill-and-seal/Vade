@@ -62,9 +62,8 @@ export function suppressLowResolutionWarning() {
 
 function isLowResolutionMessage(message) {
   if (typeof message !== "string") return false;
-  if (message === LOW_RES_KEY) return true;
-  const localized = game.i18n?.localize(LOW_RES_KEY);
-  if (!localized || localized === LOW_RES_KEY) return false;
-  // Le texte peut être formaté avec la taille de l'écran : on compare son début.
-  return message.startsWith(localized.slice(0, 40));
+  // Clé brute (LowResolution, et ses variantes comme celle qui parle du zoom).
+  if (message.startsWith(LOW_RES_KEY)) return true;
+  // Texte déjà traduit : toutes les variantes citent la taille minimale, quelle que soit la langue.
+  return /1024\s*px.*768\s*px/s.test(message);
 }
